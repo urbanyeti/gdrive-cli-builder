@@ -28,7 +28,7 @@ jobs:
         export PATH=$PATH:$GOBIN
         mkdir -p $GOPATH/pkg
         mkdir -p $GOBIN
-        go get github.com/msfjarvis/gdrive
+        go install github.com/msfjarvis/gdrive@latest
 
     - name: Add support for MIPS and MIPSLE
       run: |
