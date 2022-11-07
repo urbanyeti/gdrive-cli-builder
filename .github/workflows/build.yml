@@ -28,24 +28,22 @@ jobs:
         export PATH=$PATH:$GOBIN
         mkdir -p $GOPATH/pkg
         mkdir -p $GOBIN
-        go install github.com/msfjarvis/gdrive@latest
+        cd $HOME
+        git clone https://github.com/msfjarvis/gdrive.git
     
     - name: Change CLIENT ID & SECRET
       env:
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
         CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
       run: |
-        ls $HOME/go/pkg/mod/
-        ls $HOME/go/pkg/mod/github.com
-        ls $HOME/go/pkg/mod/github.com/msfjarvis
-        cd $HOME/go/pkg/mod/github.com/msfjarvis/gdrive/
+        cd $HOME/gdrive/
         sed -i "s/367116221053-7n0vf5akeru7on6o2fjinrecpdoe99eg.apps.googleusercontent.com/$CLIENT_ID/g" handlers_drive.go
         sed -i "s/1qsNodXNaWq1mQuBjUjmvhoO/$CLIENT_SECRET/g" handlers_drive.go
 
     - name: Build
       run: |
-        cp -r build/* $HOME/go/src/github.com/msfjarvis/gdrive
-        cd $HOME/go/src/github.com/gdrive-org/gdrive/
+        cp -r build/* $HOME/gdrive
+        cd $HOME/gdrive/
         chmod +x build-selected.sh
         chmod +x build.sh
         ./build-selected.sh
@@ -54,7 +52,7 @@ jobs:
     - name: Copy release file
       run: |
         mkdir release
-        cp -r $HOME/go/src/github.com/msfjarvis/gdrive/_release/bin/* release
+        cp -r $HOME/gdrive/_release/bin/* release
 
     - name: Save build file to artifact
       uses: actions/upload-artifact@v1
