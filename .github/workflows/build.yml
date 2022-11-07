@@ -35,6 +35,9 @@ jobs:
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
         CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
       run: |
+        ls $HOME/go/pkg/mod/
+        ls $HOME/go/pkg/mod/github.com
+        ls $HOME/go/pkg/mod/github.com/msfjarvis
         cd $HOME/go/pkg/mod/github.com/msfjarvis/gdrive/
         sed -i "s/367116221053-7n0vf5akeru7on6o2fjinrecpdoe99eg.apps.googleusercontent.com/$CLIENT_ID/g" handlers_drive.go
         sed -i "s/1qsNodXNaWq1mQuBjUjmvhoO/$CLIENT_SECRET/g" handlers_drive.go
