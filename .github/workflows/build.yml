@@ -29,12 +29,6 @@ jobs:
         mkdir -p $GOPATH/pkg
         mkdir -p $GOBIN
         go install github.com/msfjarvis/gdrive@latest
-
-    - name: Add support for MIPS and MIPSLE
-      run: |
-        cd $HOME/go/src/github.com/prasmussen/gdrive/vendor/github.com/soniakeys/graph
-        sed -i "s/+build 386 arm/+build 386 arm mips mipsle/g" bits32.go
-        sed -i "s/+build \!386,\!arm/+build \!386,\!arm,\!mips,\!mipsle/g" bits64.go
     
     - name: Change CLIENT ID & SECRET
       env:
@@ -47,7 +41,7 @@ jobs:
 
     - name: Build
       run: |
-        cp -r build/* $HOME/go/src/github.com/gdrive-org/gdrive/
+        cp -r build/* $HOME/go/src/github.com/msfjarvis/gdrive
         cd $HOME/go/src/github.com/gdrive-org/gdrive/
         chmod +x build-selected.sh
         chmod +x build.sh
@@ -57,7 +51,7 @@ jobs:
     - name: Copy release file
       run: |
         mkdir release
-        cp -r $HOME/go/src/github.com/gdrive-org/gdrive/_release/bin/* release
+        cp -r $HOME/go/src/github.com/msfjarvis/gdrive/_release/bin/* release
 
     - name: Save build file to artifact
       uses: actions/upload-artifact@v1
